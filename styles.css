@@ -50,3 +50,6 @@
 .text-danger {
   color: red !important;
 }
+.modal-backdrop {
+  opacity: 0.5; /* Adjust opacity between 0 and 1 */
+}
