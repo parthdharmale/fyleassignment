@@ -46,3 +46,7 @@
     transform: translateY(-50%);
     display: none;
 }
+
+.text-danger {
+  color: red !important;
+}

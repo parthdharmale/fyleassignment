@@ -41,28 +41,50 @@
          var modal = new bootstrap.Modal(document.getElementById('exampleModal'));
          
          modal.show();
+        //  document.body.classList.add('modal-open');
+
+         
      }
 
      
-     function toggleInvalidTooltip() {
+     function toggleInvalidGrossIncome() {
         let inputElement = document.getElementById('grossIncome');
         let tooltipElement = document.getElementById('invalidGrossIncomeTooltip');
         let value = inputElement.value.trim();
+        console.log("tooltip function");
         if (value !== '' && isNaN(value)) {
             tooltipElement.style.display = 'inline-block';
         } else {
             tooltipElement.style.display = 'none';
         }
     }
-
-    // Add event listeners to input field to toggle tooltip
-    document.getElementById('grossIncome').addEventListener('input', toggleInvalidTooltip);
-
+     function toggleInvalidExtraIncome() {
+        let inputElement = document.getElementById('extraIncome');
+        let tooltipElement = document.getElementById('invalidextraIncomeTooltip');
+        let value = inputElement.value.trim();
+        console.log("tooltip function");
+        if (value !== '' && isNaN(value)) {
+            tooltipElement.style.display = 'inline-block';
+        } else {
+            tooltipElement.style.display = 'none';
+        }
+    }
+     function toggleInvalidTotalDeductions() {
+        let inputElement = document.getElementById('totalDeductions');
+        let tooltipElement = document.getElementById('invalidtotalDeductionsTooltip');
+        let value = inputElement.value.trim();
+        console.log("tooltip function");
+        if (value !== '' && isNaN(value)) {
+            tooltipElement.style.display = 'inline-block';
+        } else {
+            tooltipElement.style.display = 'none';
+        }
+    }
         var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
         var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
             return new bootstrap.Tooltip(tooltipTriggerEl);
         });
-
+        
         
  </script>
  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
@@ -71,18 +93,19 @@
      <form id="myForm">
          <div class="mb-3">
              <label for="grossAnnualIncome" class="form-label">Enter Gross Annual Income
-                 <i class="fa-solid fa-question" data-bs-toggle="tooltip" title="Your total income before any deductions or taxes"></i>
+                 <i class="fa-solid fa-question" data-bs-toggle="tooltip" title="Gross Annual Income is your total salary in a year before any deductions"></i>
              </label>
-             <input type="text" class="form-control" placeholder="Enter gross annual income" id="grossIncome" aria-describedby="grossIncome">
-             <i class="fa-solid fa-exclamation-circle" id="invalidGrossIncomeTooltip" style="display: none;" data-bs-toggle="tooltip" title="Enter a valid value"></i>
+             <input type="text" class="form-control" placeholder="Enter gross annual income" oninput="toggleInvalidGrossIncome()" id="grossIncome" aria-describedby="grossIncome">
+             <i class="fa-solid fa-exclamation-circle"  id="invalidGrossIncomeTooltip" style="display: none;" data-bs-toggle="tooltip" title="Please enter numbers only"></i>
          </div>
          <div class="mb-3">
              <label for="grossExtraIncome" class="form-label"> Enter Extra Income
                  <i class="fa-solid fa-question" data-bs-toggle="tooltip" title="Income from sources other than your main job"></i>
              </label>
              
-             <input type="text" class="form-control" placeholder="Enter extra income from other sources" id="extraIncome">
-             <i class="fa-solid fa-exclamation-circle" id="invalidextraIncomeTooltip" style="display: none;" data-bs-toggle="tooltip" title="Enter a valid value"></i>
+             <input type="text" class="form-control" placeholder="Enter extra income from other sources" oninput="toggleInvalidExtraIncome()" id="extraIncome">
+             <!-- <i class="fa-duotone fa-circle-exclamation" style="--fa-primary-color: #ff0000; --fa-secondary-color: #000000;"></i> -->
+             <i class="fa-solid fa-exclamation-circle" id="invalidextraIncomeTooltip" style="display: none;" data-bs-toggle="tooltip" title="Please enter numbers only"></i>
          </div>
          <div class="mb-3">
          </div>
@@ -102,8 +125,8 @@
              <label for="totalDeductions" class="form-label"> Enter Total Applicable Tax Deductions
                  <i class="fa-solid fa-question" data-bs-toggle="tooltip" title="Total deductions from your income that are eligible for tax benefits"></i>
              </label>
-             <input type="text" class="form-control" placeholder="Add total applicable tax deductions" id="totalDeductions">
-             <i class="fa-solid fa-exclamation-circle" id="invalidtotalDeductionsTooltip" style="display: none;" data-bs-toggle="tooltip" title="Enter a valid value"></i>
+             <input type="text" class="form-control" placeholder="Add total applicable tax deductions" oninput="toggleInvalidTotalDeductions()" id="totalDeductions">
+             <i class="fa-solid fa-exclamation-circle" id="invalidtotalDeductionsTooltip" style="display: none;" data-bs-toggle="tooltip" title="Please enter numbers only"></i>
          </div>
  
          <button type="button" class="btn btn-primary" onclick="calculateAndShowModal()">Submit</button>
