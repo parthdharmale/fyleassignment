@@ -32,3 +32,17 @@
   .dropdown {
     margin-bottom: 1rem; /* Adjust the margin as needed */
   }
+  .error-tooltip {
+    position: relative;
+}
+
+.error-tooltip::after {
+    content: "\u26A0";
+    color: red;
+    font-size: 14px;
+    position: absolute;
+    top: 50%;
+    right: 10px;
+    transform: translateY(-50%);
+    display: none;
+}

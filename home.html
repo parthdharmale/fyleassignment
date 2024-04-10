@@ -43,16 +43,27 @@
          modal.show();
      }
 
-     function displayError(inputId){
-        let input = document.getElementById(inputId);
-        let tooltipElement = inputElement.parentElement.querySelector('.error-tooltip');
-        tooltipElement.style.display = 'inline-block';
-     }
+     
+     function toggleInvalidTooltip() {
+        let inputElement = document.getElementById('grossIncome');
+        let tooltipElement = document.getElementById('invalidGrossIncomeTooltip');
+        let value = inputElement.value.trim();
+        if (value !== '' && isNaN(value)) {
+            tooltipElement.style.display = 'inline-block';
+        } else {
+            tooltipElement.style.display = 'none';
+        }
+    }
+
+    // Add event listeners to input field to toggle tooltip
+    document.getElementById('grossIncome').addEventListener('input', toggleInvalidTooltip);
 
         var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
         var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
             return new bootstrap.Tooltip(tooltipTriggerEl);
         });
+
+        
  </script>
  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
  <script src="https://kit.fontawesome.com/69b552289d.js" crossorigin="anonymous"></script>
@@ -62,16 +73,16 @@
              <label for="grossAnnualIncome" class="form-label">Enter Gross Annual Income
                  <i class="fa-solid fa-question" data-bs-toggle="tooltip" title="Your total income before any deductions or taxes"></i>
              </label>
-             <input type="number" class="form-control" placeholder="Enter gross annual income" id="grossIncome" aria-describedby="grossIncome">
+             <input type="text" class="form-control" placeholder="Enter gross annual income" id="grossIncome" aria-describedby="grossIncome">
+             <i class="fa-solid fa-exclamation-circle" id="invalidGrossIncomeTooltip" style="display: none;" data-bs-toggle="tooltip" title="Enter a valid value"></i>
          </div>
          <div class="mb-3">
              <label for="grossExtraIncome" class="form-label"> Enter Extra Income
                  <i class="fa-solid fa-question" data-bs-toggle="tooltip" title="Income from sources other than your main job"></i>
              </label>
-             <div class="error-tooltip" style="display: none;" data-bs-toggle="tooltip" data-bs-placement="right" title="Please enter a valid number">
-                <i class="fa-solid fa-exclamation-circle"></i>
-            </div>
-             <input type="number" class="form-control" placeholder="Enter extra income from other sources" id="extraIncome">
+             
+             <input type="text" class="form-control" placeholder="Enter extra income from other sources" id="extraIncome">
+             <i class="fa-solid fa-exclamation-circle" id="invalidextraIncomeTooltip" style="display: none;" data-bs-toggle="tooltip" title="Enter a valid value"></i>
          </div>
          <div class="mb-3">
          </div>
@@ -91,7 +102,8 @@
              <label for="totalDeductions" class="form-label"> Enter Total Applicable Tax Deductions
                  <i class="fa-solid fa-question" data-bs-toggle="tooltip" title="Total deductions from your income that are eligible for tax benefits"></i>
              </label>
-             <input type="number" class="form-control" placeholder="Add total applicable tax deductions" id="totalDeductions">
+             <input type="text" class="form-control" placeholder="Add total applicable tax deductions" id="totalDeductions">
+             <i class="fa-solid fa-exclamation-circle" id="invalidtotalDeductionsTooltip" style="display: none;" data-bs-toggle="tooltip" title="Enter a valid value"></i>
          </div>
  
          <button type="button" class="btn btn-primary" onclick="calculateAndShowModal()">Submit</button>
