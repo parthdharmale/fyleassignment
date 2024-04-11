@@ -14,3 +14,9 @@
 
 - Page View when all data is entered and modal pops up
    ![image](https://github.com/parthdharmale/fyleassignment/assets/78959166/c4242dd1-812c-42ac-8d6e-933c3cfdd7c8)
+
+- Page View when submit button is clicked with a field left blank
+  ![image](https://github.com/parthdharmale/fyleassignment/assets/78959166/35d1c225-14d9-4223-a847-62c05ecc81fc)
+
+- Page View when close button is clicked on the modal
+   ![image](https://github.com/parthdharmale/fyleassignment/assets/78959166/33dccda6-6010-4984-99ec-e2f2e6252932)
