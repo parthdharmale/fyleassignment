@@ -46,7 +46,8 @@
         var regex = /[a-zA-Z]/;
         if (value === "") {
           tooltipElement.style.display = "inline-block";
-        } else if(regex.test(grossIncomeValue)){
+        } 
+        else if(regex.test(grossIncomeValue)){
             window.alert("Please enter a number for gross annual income or leave the input field blank")
         }else if(regex.test(extraIncomeValue)){
             window.alert("Please enter a number for extra income or leave the input field blank")
@@ -81,8 +82,18 @@
           let totalTaxableIncome = grossIncome + extraIncome - totalDeductions;
         //   console.log(totalTaxableIncome);
           let incomeAfterTax = 0;
-
-          if (totalTaxableIncome > 800000) {
+          
+          let income = grossIncome + extraIncome;
+          if(grossIncome < 0){
+            window.alert("Gross Income cannot be negative");
+          }else if(extraIncome < 0){
+            window.alert("Extra Income cannot be negative");
+          }else if(totalDeductions < 0){
+            window.alert("Total Deductions cannot be negative");
+          }else if(income < totalDeductions){
+            window.alert("Your Income cannot be less than total deductions");
+          }else{
+            if (totalTaxableIncome > 800000) {
             if (ageRange == "lessThan40") {
               incomeAfterTax = totalTaxableIncome * 0.7;
             } else if (ageRange == "between40and60") {
@@ -107,6 +118,8 @@
             .addEventListener("click", function () {
               resetInputFields();
             });
+          }
+          
         }
       }
       function resetInputFields() {
