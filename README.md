@@ -20,3 +20,9 @@
 
 - Page View when close button is clicked on the modal
    ![image](https://github.com/parthdharmale/fyleassignment/assets/78959166/33dccda6-6010-4984-99ec-e2f2e6252932)
+
+- Page View when input is negative
+ ![image](https://github.com/parthdharmale/fyleassignment/assets/78959166/81073082-a30a-456f-9031-3635763ccbb2)
+
+- Page View when deductions is greater than the total income
+   ![image](https://github.com/parthdharmale/fyleassignment/assets/78959166/f2136f4a-7f84-45e6-a1b8-ef1dafe7afcc)
