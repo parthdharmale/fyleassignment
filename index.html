@@ -34,9 +34,26 @@
         let inputElement = document.getElementById("ageRange");
         let tooltipElement = document.getElementById("invalidAgeRange");
         let value = inputElement.value;
+
+        let inputGrossIncome = document.getElementById("grossIncome");
+        let inputExtraIncome = document.getElementById("extraIncome");
+        let inputTotalDeductions = document.getElementById("totalDeductions");
+
+        let grossIncomeValue = inputGrossIncome.value;
+        let extraIncomeValue = inputExtraIncome.value;
+        let totalDeductionsValue = inputTotalDeductions.value;
+
+        var regex = /[a-zA-Z]/;
         if (value === "") {
           tooltipElement.style.display = "inline-block";
-        } else {
+        } else if(regex.test(grossIncomeValue)){
+            window.alert("Please enter a number for gross annual income or leave the input field blank")
+        }else if(regex.test(extraIncomeValue)){
+            window.alert("Please enter a number for extra income or leave the input field blank")
+        }else if(regex.test(totalDeductionsValue)){
+            window.alert("Please enter a number for total deductions or leave the input field blank")
+        }
+        else {
           let grossIncome = parseInt(
             document.getElementById("grossIncome").value
           );
@@ -117,7 +134,7 @@
 
         if (value !== "" && isNaN(value)) {
           tooltipElement.style.display = "inline-block";
-          window.alert("Please enter a number or leave the input field blank");
+        //   window.alert("Please enter a number or leave the input field blank");
         } else {
           tooltipElement.style.display = "none";
         }
@@ -133,7 +150,7 @@
 
         if (value !== "" && isNaN(value)) {
           tooltipElement.style.display = "inline-block";
-          window.alert("Please enter a number or leave the input field blank");
+        //   window.alert("Please enter a number or leave the input field blank");
         } else {
           tooltipElement.style.display = "none";
         }
@@ -147,7 +164,7 @@
         console.log("tooltip function");
         if (value !== "" && isNaN(value)) {
           tooltipElement.style.display = "inline-block";
-          window.alert("Please enter a number or leave the input field blank");
+        //   window.alert("Please enter a number or leave the input field blank");
         } else {
           tooltipElement.style.display = "none";
         }
