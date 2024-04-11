@@ -1,197 +1,317 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Tax Calculator</title>
+    <link rel="stylesheet" href="styles.css" />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH"
+      crossorigin="anonymous"
+    />
 
- <!doctype html>
- <html lang="en">
- <head>
-     <meta charset="utf-8">
-     <meta name="viewport" content="width=device-width, initial-scale=1">
-     <title>Tax Calculator</title>
-     <link rel="stylesheet" href="styles.css">
-     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
-     <!-- <link rel="stylesheet" href="style.scss"> -->
-
-     <style>
-        /* Override modal backdrop styles */
-        .modal-backdrop {
-            --bs-backdrop-zindex: 1050;
-            --bs-backdrop-bg: rgba(0, 0, 0, 0); 
-            /* --bs-backdrop-bg: #fff;  */
-            --bs-backdrop-opacity: 0.5;
-            position: fixed;
-            top: 0;
-            left: 0;
-            /* z-index: var(--bs-backdrop-zindex); */
-            z-index: -2;
-            width: 100vw;
-            height: 100vh;
-            background-color: var(--bs-backdrop-bg);
-        }
+    <style>
+        /* overriding .modal-backdrop scss to change background color  */
+      .modal-backdrop {
+        --bs-backdrop-zindex: 1050;
+        --bs-backdrop-bg: rgba(0, 0, 0, 0);
+        --bs-backdrop-opacity: 0.5;
+        position: fixed;
+        top: 0;
+        left: 0;
+        z-index: -2;
+        width: 100vw;
+        height: 100vh;
+        background-color: var(--bs-backdrop-bg);
+      }
     </style>
-    
-      
- </head>
- <body>
- <script>
-     function calculateAndShowModal() {
-        let inputElement = document.getElementById('ageRange');
-        let tooltipElement = document.getElementById('invalidAgeRange');
+  </head>
+  <body>
+    <script>
+      function calculateAndShowModal() {
+        let inputElement = document.getElementById("ageRange");
+        let tooltipElement = document.getElementById("invalidAgeRange");
         let value = inputElement.value;
-        if(value === ''){
-            tooltipElement.style.display = 'inline-block';
-        }else{
+        if (value === "") {
+          tooltipElement.style.display = "inline-block";
+        } else {
+          let grossIncome = parseInt(
+            document.getElementById("grossIncome").value
+          );
+          let extraIncome = parseInt(
+            document.getElementById("extraIncome").value
+          );
+          var ageRange = document.getElementById("ageRange").value;
+          let totalDeductions = parseInt(
+            document.getElementById("totalDeductions").value
+          );
+          if (!grossIncome) {
+            grossIncome = 0;
+          }
+          if (!extraIncome) {
+            extraIncome = 0;
+          }
+          if (!totalDeductions) {
+            totalDeductions = 0;
+          }
+        //   console.log("Gross Income:", grossIncome);
+        //   console.log("Extra Income:", extraIncome);
+        //   console.log("Age Range:", ageRange);
+        //   console.log("Total Deductions:", totalDeductions);
 
-         let grossIncome = parseInt(document.getElementById('grossIncome').value);
-         let extraIncome = parseInt(document.getElementById('extraIncome').value);
-         var ageRange = document.getElementById('ageRange').value;
-         let totalDeductions = parseInt(document.getElementById('totalDeductions').value);
- 
-         console.log("Gross Income:", grossIncome);
-         console.log("Extra Income:", extraIncome);
-         console.log("Age Range:", ageRange);
-         console.log("Total Deductions:", totalDeductions);
- 
-         let totalTaxableIncome = grossIncome + extraIncome - totalDeductions;
-         console.log(totalTaxableIncome);
-         let incomeAfterTax = 0;
- 
-         if(totalTaxableIncome > 800000){
-             if(ageRange == "lessThan40"){
-                 incomeAfterTax = totalTaxableIncome * 0.7;
-             }else if(ageRange == "between40and60"){
-                 incomeAfterTax = totalTaxableIncome * 0.6;
-             }else{
-                 incomeAfterTax = totalTaxableIncome * 0.9;
-             }
-         }else{
-             incomeAfterTax = totalTaxableIncome;
-         }
- 
-         document.getElementById('incomeAfterTaxDisplay').textContent = incomeAfterTax;
-         var modal = new bootstrap.Modal(document.getElementById('exampleModal'));
-         
-         modal.show();
-        //  document.body.classList.add('modal-open');
-    //     document.querySelector('.btn-close').addEventListener('click', function(){
-    //     modal.hide();
-    //     document.body.classList.remove('modal-open');
-    // });
+          let totalTaxableIncome = grossIncome + extraIncome - totalDeductions;
+          console.log(totalTaxableIncome);
+          let incomeAfterTax = 0;
 
-    document.querySelector('.btn-primary[data-bs-dismiss="modal"]').addEventListener('click', closeModal);
+          if (totalTaxableIncome > 800000) {
+            if (ageRange == "lessThan40") {
+              incomeAfterTax = totalTaxableIncome * 0.7;
+            } else if (ageRange == "between40and60") {
+              incomeAfterTax = totalTaxableIncome * 0.6;
+            } else {
+              incomeAfterTax = totalTaxableIncome * 0.9;
+            }
+          } else {
+            incomeAfterTax = totalTaxableIncome;
+          }
+
+          document.getElementById("incomeAfterTaxDisplay").textContent =
+            incomeAfterTax;
+          var modal = new bootstrap.Modal(
+            document.getElementById("exampleModal")
+          );
+
+          modal.show();
+
+          document
+            .querySelector('.btn-primary[data-bs-dismiss="modal"]')
+            .addEventListener("click", function () {
+              resetInputFields();
+            });
         }
-     }
+      }
+      function resetInputFields() {
+        document.getElementById("grossIncome").value = "";
+        document.getElementById("extraIncome").value = "";
+        document.getElementById("ageRange").value = "";
+        document.getElementById("totalDeductions").value = "";
+        document.getElementById("invalidGrossIncomeTooltip").style.display =
+          "none";
+        document.getElementById("invalidextraIncomeTooltip").style.display =
+          "none";
+        document.getElementById("invalidAgeRange").style.display = "none";
+        document.getElementById("invalidtotalDeductionsTooltip").style.display =
+          "none";
+      }
 
-     
+      function toggleInvalidGrossIncome() {
+        let inputElement = document.getElementById("grossIncome");
+        let tooltipElement = document.getElementById(
+          "invalidGrossIncomeTooltip"
+        );
+        let value = inputElement.value.trim();
 
-     
-     function toggleInvalidGrossIncome() {
-        let inputElement = document.getElementById('grossIncome');
-        let tooltipElement = document.getElementById('invalidGrossIncomeTooltip');
+        console.log("tooltip function");
+
+        if (value !== "" && isNaN(value)) {
+          tooltipElement.style.display = "inline-block";
+          window.alert("Please enter a number or leave the input field blank");
+        } else {
+          tooltipElement.style.display = "none";
+        }
+      }
+      function toggleInvalidExtraIncome() {
+        let inputElement = document.getElementById("extraIncome");
+        let tooltipElement = document.getElementById(
+          "invalidextraIncomeTooltip"
+        );
+        let value = inputElement.value.trim();
+
+        console.log("tooltip function");
+
+        if (value !== "" && isNaN(value)) {
+          tooltipElement.style.display = "inline-block";
+          window.alert("Please enter a number or leave the input field blank");
+        } else {
+          tooltipElement.style.display = "none";
+        }
+      }
+      function toggleInvalidTotalDeductions() {
+        let inputElement = document.getElementById("totalDeductions");
+        let tooltipElement = document.getElementById(
+          "invalidtotalDeductionsTooltip"
+        );
         let value = inputElement.value.trim();
         console.log("tooltip function");
-        if (value !== '' && isNaN(value)) {
-            tooltipElement.style.display = 'inline-block';
+        if (value !== "" && isNaN(value)) {
+          tooltipElement.style.display = "inline-block";
+          window.alert("Please enter a number or leave the input field blank");
         } else {
-            tooltipElement.style.display = 'none';
+          tooltipElement.style.display = "none";
         }
-    }
-     function toggleInvalidExtraIncome() {
-        let inputElement = document.getElementById('extraIncome');
-        let tooltipElement = document.getElementById('invalidextraIncomeTooltip');
-        let value = inputElement.value.trim();
-        console.log("tooltip function");
-        if (value !== '' && isNaN(value)) {
-            tooltipElement.style.display = 'inline-block';
-        } else {
-            tooltipElement.style.display = 'none';
-        }
-    }
-     function toggleInvalidTotalDeductions() {
-        let inputElement = document.getElementById('totalDeductions');
-        let tooltipElement = document.getElementById('invalidtotalDeductionsTooltip');
-        let value = inputElement.value.trim();
-        console.log("tooltip function");
-        if (value !== '' && isNaN(value)) {
-            tooltipElement.style.display = 'inline-block';
-        } else {
-            tooltipElement.style.display = 'none';
-        }
-    }
-        var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
-        var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
-            return new bootstrap.Tooltip(tooltipTriggerEl);
-        });
-        
-        
- </script>
- <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
- <script src="https://kit.fontawesome.com/69b552289d.js" crossorigin="anonymous"></script>
- <div class="container text-dark">
-     <form id="myForm">
-        
-         <div class=" row mb-3">
-            <div class = "col">
-                <label for="grossAnnualIncome" class="form-label">Enter Gross Annual Income
-                    <i class="fa-solid fa-question" data-bs-toggle="tooltip" title="Gross Annual Income is your total salary in a year before any deductions"></i>
-                </label>
-                <input type="text" class="form-control" placeholder="Enter gross annual income" oninput="toggleInvalidGrossIncome()" id="grossIncome" aria-describedby="grossIncome">
+      }
+      var tooltipTriggerList = [].slice.call(
+        document.querySelectorAll('[data-bs-toggle="tooltip"]')
+      );
+      var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
+        return new bootstrap.Tooltip(tooltipTriggerEl);
+      });
+    </script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://kit.fontawesome.com/69b552289d.js"
+      crossorigin="anonymous"
+    ></script>
+    <div class="container text-dark">
+      <form id="myForm">
+        <div class="row mb-3">
+          <div class="col">
+            <label for="grossAnnualIncome" class="form-label"
+              >Enter Gross Annual Income
+              <i
+                class="fa-solid fa-question"
+                data-bs-toggle="tooltip"
+                title="Gross Annual Income is your total salary in a year before any deductions"
+              ></i>
+            </label>
+            <input
+              type="text"
+              class="form-control"
+              placeholder="Enter gross annual income"
+              oninput="toggleInvalidGrossIncome()"
+              id="grossIncome"
+              aria-describedby="grossIncome"
+            />
+          </div>
+          <div class="auto-row auto-col">
+            <i
+              class="fa-solid fa-exclamation-circle"
+              id="invalidGrossIncomeTooltip"
+              style="display: none"
+              data-bs-toggle="tooltip"
+              title="Please enter numbers only"
+            ></i>
+          </div>
+        </div>
+        <div class="mb-3">
+          <label for="grossExtraIncome" class="form-label">
+            Enter Extra Income
+            <i
+              class="fa-solid fa-question"
+              data-bs-toggle="tooltip"
+              title="Income from sources other than your main job"
+            ></i>
+          </label>
+
+          <input
+            type="text"
+            class="form-control"
+            placeholder="Enter extra income from other sources"
+            oninput="toggleInvalidExtraIncome()"
+            id="extraIncome"
+          />
+
+          <i
+            class="fa-solid fa-exclamation-circle"
+            id="invalidextraIncomeTooltip"
+            style="display: none"
+            data-bs-toggle="tooltip"
+            title="Please enter numbers only"
+          ></i>
+        </div>
+        <div class="mb-3"></div>
+        <div class="mb-3 dropdown">
+          <label for="ageRange" class="form-label"
+            >Age Range
+            <i
+              class="fa-solid fa-question"
+              data-bs-toggle="tooltip"
+              title="Select the age range that applies to you"
+            ></i>
+          </label>
+          <select id="ageRange">
+            <option value="" selected disabled></option>
+            <option value="lessThan40">Less Than 40 Years</option>
+            <option value="between40and60">Between 40 and 60 Years</option>
+            <option value="greaterThan60">Greater than 60 Years</option>
+          </select>
+          <i
+            class="fa-solid fa-exclamation-circle"
+            id="invalidAgeRange"
+            style="display: none"
+            data-bs-toggle="tooltip"
+            title="Please Select a age range"
+          ></i>
+        </div>
+
+        <div class="mb-3">
+          <label for="totalDeductions" class="form-label">
+            Enter Total Applicable Tax Deductions
+            <i
+              class="fa-solid fa-question"
+              data-bs-toggle="tooltip"
+              title="Total deductions from your income that are eligible for tax benefits"
+            ></i>
+          </label>
+          <input
+            type="text"
+            class="form-control"
+            placeholder="Add total applicable tax deductions"
+            oninput="toggleInvalidTotalDeductions()"
+            id="totalDeductions"
+          />
+          <i
+            class="fa-solid fa-exclamation-circle"
+            id="invalidtotalDeductionsTooltip"
+            style="display: none"
+            data-bs-toggle="tooltip"
+            title="Please enter numbers only"
+          ></i>
+        </div>
+        <button
+          type="button"
+          class="btn btn-primary"
+          onclick="calculateAndShowModal()"
+        >
+          Submit
+        </button>
+
+        <div
+          class="modal fade"
+          id="exampleModal"
+          z-index="1000"
+          tabindex="-1"
+          aria-labelledby="exampleModalLabel"
+          aria-hidden="true"
+        >
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-body text-center text-dark">
+                <h3 class="modal-title" id="exampleModalLabel">
+                  Your Overall Income Will Be
+                </h3>
+                <h4 id="incomeAfterTaxDisplay"></h4>
+                <h5>After tax deductions</h5>
+              </div>
+              <div class="modal-footer">
+                <button
+                  type="button"
+                  class="btn btn-primary"
+                  data-bs-dismiss="modal"
+                >
+                  Close
+                </button>
+              </div>
             </div>
-            <div class="auto-row auto-col">
-                <i class="fa-solid fa-exclamation-circle"  id="invalidGrossIncomeTooltip" style="display: none;" data-bs-toggle="tooltip" title="Please enter numbers only"></i>
-            </div>
-             
-         </div>
-         <div class="mb-3">
-             <label for="grossExtraIncome" class="form-label"> Enter Extra Income
-                 <i class="fa-solid fa-question" data-bs-toggle="tooltip" title="Income from sources other than your main job"></i>
-             </label>
-             
-             <input type="text" class="form-control" placeholder="Enter extra income from other sources" oninput="toggleInvalidExtraIncome()" id="extraIncome">
-             <!-- <i class="fa-duotone fa-circle-exclamation" style="--fa-primary-color: #ff0000; --fa-secondary-color: #000000;"></i> -->
-             <i class="fa-solid fa-exclamation-circle" id="invalidextraIncomeTooltip" style="display: none;" data-bs-toggle="tooltip" title="Please enter numbers only"></i>
-         </div>
-         <div class="mb-3">
-         </div>
-         <div class="mb-3 dropdown">
-             <label for="ageRange" class = "form-label">Age Range
-                 <i class="fa-solid fa-question" data-bs-toggle="tooltip" title="Select the age range that applies to you"></i>
-             </label>
-             <select id="ageRange">
-                 <option value="" selected disabled> </option>
-                 <option value="lessThan40"> Less Than 40 Years</option>
-                 <option value="between40and60">Between 40 and 60 Years</option>
-                 <option value="greaterThan60">Greater than 60 Years</option>
-             </select>
-             <i class="fa-solid fa-exclamation-circle" id="invalidAgeRange" style="display: none;" data-bs-toggle="tooltip" title="Please Select a age range"></i>
-         </div>
- 
-         <div class="mb-3">
-             <label for="totalDeductions" class="form-label"> Enter Total Applicable Tax Deductions
-                 <i class="fa-solid fa-question" data-bs-toggle="tooltip" title="Total deductions from your income that are eligible for tax benefits"></i>
-             </label>
-             <input type="text" class="form-control" placeholder="Add total applicable tax deductions" oninput="toggleInvalidTotalDeductions()" id="totalDeductions">
-             <i class="fa-solid fa-exclamation-circle" id="invalidtotalDeductionsTooltip" style="display: none;" data-bs-toggle="tooltip" title="Please enter numbers only"></i>
-         </div>
-         <button type="button" class="btn btn-primary" onclick="calculateAndShowModal()">Submit</button>
-        
-         
-         <div class="modal fade" id="exampleModal" z-index="1000" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-             <div class="modal-dialog">
-                 <div class="modal-content">
-                     <div class="modal-body text-center text-dark">
-                         <h3 class="modal-title" id="exampleModalLabel">Your Overall Income Will Be </h3>
-                         <h4 id="incomeAfterTaxDisplay"></h4>
-                         <h5>After tax deductions</h5>
-                     </div>
-                     <div class="modal-footer">
-                         <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Close</button>
-                     </div>
-                 </div>
-             </div>
-         </div>
-
-         
-        
-     </form>
- </div>
- </body>
- </html>
- 
+          </div>
+        </div>
+      </form>
+    </div>
+  </body>
+</html>
