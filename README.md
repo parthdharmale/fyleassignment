@@ -13,4 +13,4 @@
   ![image](https://github.com/parthdharmale/fyleassignment/assets/78959166/89d805de-2144-4e36-8b46-6d499bfcb5d2)
 
 - Page View when all data is entered and modal pops up
-   ![image](https://github.com/parthdharmale/fyleassignment/assets/78959166/aac5ad78-f446-4a3a-bc1f-317765ad18fc)
+   ![image](https://github.com/parthdharmale/fyleassignment/assets/78959166/c4242dd1-812c-42ac-8d6e-933c3cfdd7c8)
